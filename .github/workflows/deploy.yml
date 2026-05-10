@@ -29,13 +29,6 @@ jobs:
           chmod +x scripts/ensure_secret.sh
           echo "EIDOS_POSTGRES_PASSWORD_NAME=$(echo "$POSTGRES_PASSWORD" | ./scripts/ensure_secret.sh eidos_postgres_password)" >> $GITHUB_ENV
 
-      - name: Initialize Server Directories
-        env:
-          EIDOS_DB_MOUNT_PATH: ${{ vars.EIDOS_DB_MOUNT_PATH }}
-        run: |
-          chmod +x init-server.sh
-          ./init-server.sh
-
       - name: Build and Deploy with Docker Compose
         env:
           REGISTRY_PREFIX: ${{ vars.REGISTRY_PREFIX }}
