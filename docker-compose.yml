@@ -31,7 +31,7 @@ services:
     labels:
       - "com.docker.compose.project=${STACK_NAME:-eidos}"
     ports:
-      - "3000:3000"
+      - "3300:3000"
     deploy:
       mode: replicated
       replicas: 1
@@ -60,7 +60,7 @@ services:
     labels:
       - "com.docker.compose.project=${STACK_NAME:-eidos}"
     ports:
-      - "4000:4000"
+      - "3400:4000"
     deploy:
       mode: replicated
       replicas: 1
