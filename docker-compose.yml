@@ -42,6 +42,15 @@ services:
           - node.role == manager
       restart_policy:
         condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.eidos-mcp.rule=Host(`eidos.${DOMAIN_NAME}`) && PathPrefix(`/mcp`)"
+        - "traefik.http.routers.eidos-mcp.entrypoints=websecure"
+        - "traefik.http.routers.eidos-mcp.middlewares=authelia,eidos-mcp-strip"
+        - "traefik.http.routers.eidos-mcp.tls=true"
+        - "traefik.http.middlewares.eidos-mcp-strip.stripprefix.prefixes=/mcp"
+        - "traefik.http.services.eidos-mcp.loadbalancer.server.port=3000"
+        - "traefik.docker.network=aether-net"
     environment:
       - PORT=3000
       - POSTGRES_USER=postgres
@@ -71,6 +80,14 @@ services:
           - node.role == manager
       restart_policy:
         condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.eidos-graphql.rule=Host(`eidos.${DOMAIN_NAME}`) && PathPrefix(`/graphql`)"
+        - "traefik.http.routers.eidos-graphql.entrypoints=websecure"
+        - "traefik.http.routers.eidos-graphql.middlewares=authelia"
+        - "traefik.http.routers.eidos-graphql.tls=true"
+        - "traefik.http.services.eidos-graphql.loadbalancer.server.port=4000"
+        - "traefik.docker.network=aether-net"
     environment:
       - PORT=4000
       - POSTGRES_USER=postgres
