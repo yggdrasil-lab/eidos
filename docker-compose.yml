@@ -1,6 +1,9 @@
 services:
   eidos-db:
-    image: postgres:15-alpine
+    image: ${REGISTRY_PREFIX}eidos-db:${STACK_NAME:-latest}
+    build:
+      context: .
+      dockerfile: services/db/Dockerfile
     labels:
       - "com.docker.compose.project=${STACK_NAME:-eidos}"
     environment:
@@ -11,7 +14,6 @@ services:
       - eidos_postgres_password
     volumes:
       - ${EIDOS_DB_MOUNT_PATH:-./db-data}:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     deploy:
       mode: replicated
       replicas: 1
