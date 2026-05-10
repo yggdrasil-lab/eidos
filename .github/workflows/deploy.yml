@@ -33,6 +33,7 @@ jobs:
         env:
           REGISTRY_PREFIX: ${{ vars.REGISTRY_PREFIX }}
           EIDOS_DB_MOUNT_PATH: ${{ vars.EIDOS_DB_MOUNT_PATH }}
+          DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
         run: |
           chmod +x scripts/deploy.sh
           ./scripts/deploy.sh "eidos" docker-compose.yml
