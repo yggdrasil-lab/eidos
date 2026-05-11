@@ -44,7 +44,7 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.eidos-mcp.rule=Host(`eidos.${DOMAIN_NAME}`) && PathPrefix(`/mcp`)"
         - "traefik.http.routers.eidos-mcp.entrypoints=websecure"
-        - "traefik.http.routers.eidos-mcp.middlewares=authelia-bearer,eidos-mcp-strip"
+        - "traefik.http.routers.eidos-mcp.middlewares=authelia,eidos-mcp-strip"
         - "traefik.http.routers.eidos-mcp.tls=true"
         - "traefik.http.middlewares.eidos-mcp-strip.stripprefix.prefixes=/mcp"
         - "traefik.http.services.eidos-mcp.loadbalancer.server.port=3000"
